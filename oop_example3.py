@@ -13,35 +13,6 @@
 # I'm wondering how we should handle inventories, because we need a total store but also a locality
 # I guess the main inventory should be centralised, we just use a attribute to discern where its from
 
-# What functions will a library manage
-# Adding a branch
-# Inventory management
-    # Moving book between branches
-    # Adding book
-    # Removing book
-# Generating reports
-
-class Library:
-    def __init__(self, name):
-        self.name = name
-        self.branches = [] 
-        self.inventory = {}
-        self.members = {} 
-
-# What functions will a branch manage
-# Member signs up through a branch
-# Inventory management
-    # Book checkout
-    # Book return
-# Generate overdue list
-    # Harass member
-
-class Branch:
-    def __init__(self, id, name, parent):
-        self.id = id
-        self.name = name
-        self.library = parent
-
 # What functions will a member conduct
 # Show overdue books
 # Show rented books
@@ -53,8 +24,8 @@ class Member:
     counter = 0
     
     def __init__(self, name, branch):
-        Member.counter += 1
         self.id = Member.counter
+        Member.counter += 1
         self.name = name
         self.branch = branch
         self.history = {}
@@ -71,10 +42,64 @@ class Book:
     counter = 0
 
     def __init__(self, title, branch, *authors):
-        Book.counter += 1
         self.id = Book.counter
+        Book.counter += 1
         self.title = title
         self.branch = branch
         self.authors = list(authors)
         self.available = True
         self.borrower = None
+
+# What functions will a library manage
+# Adding a branch
+# Inventory management
+    # Moving book between branches
+    # Adding book
+    # Removing book
+# Generating reports
+
+class Library:
+    def __init__(self, name):
+        self.name = name
+        self.branches = [] 
+        self.inventory = {}
+        self.members = {} 
+    
+    def add_branch(self, name):
+        branch = Branch(name, self)
+        self.branches.append(branch)
+        return branch.id
+    
+    def list_branches(self):
+        for branch in self.branches:
+            print(branch, end="\n")
+
+    def add_book(self, book: Book):
+        if book.id in self.inventory:
+            print(f"Book: {book.title} is already in the inventory")
+            return
+        
+        self.inventory[book.id] = book
+
+    def remove_book(self, id):
+        if id not in self.inventory:
+            print(f"Book: {self.inventory[id].title} is not in the inventory")
+            return
+
+
+# What functions will a branch manage
+# Member signs up through a branch
+# Inventory management
+    # Book checkout
+    # Book return
+# Generate overdue list
+    # Harass member
+
+class Branch:
+    count = 0
+
+    def __init__(self, name, parent):
+        self.id = Branch.count
+        Branch.count += 1
+        self.name = name
+        self.library = parent

@@ -33,6 +33,8 @@ class Library:
 # Inventory management
     # Book checkout
     # Book return
+# Generate overdue list
+    # Harass member
 
 class Branch:
     def __init__(self, id, name, parent):
@@ -41,7 +43,11 @@ class Branch:
         self.library = parent
 
 # What functions will a member conduct
-# Or is it more of a data store?
+# Show overdue books
+# Show rented books
+# Extend rental
+# Show history
+# Generate recommendations
 
 class Member:
     counter = 0
@@ -56,6 +62,10 @@ class Member:
 
     def checkout(self, book_id):
         pass
+
+# What functions will a book perform
+# Show active page
+# Turn page
 
 class Book:
     counter = 0

@@ -59,14 +59,14 @@ class Book:
 # Generating reports
 
 class Library:
-    def __init__(self, name):
+    def __init__(self, name: str):
         self.name = name
         self.branches = [] 
         self.inventory = {}
         self.members = {} 
     
-    def add_branch(self, name):
-        branch = Branch(name, self)
+    def add_branch(self, name: str):
+        branch: Branch = Branch(name, self)
         self.branches.append(branch)
         return branch.id
     
